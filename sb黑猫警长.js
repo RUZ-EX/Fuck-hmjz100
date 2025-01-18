@@ -73,6 +73,9 @@
         </div>
         <div id="modalOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 999; display: none;"></div>
     `;
+    
+      // 将模态对话框添加到页面中
+      document.body.insertAdjacentHTML('beforeend', modalHTML);    
 
     // 添加按钮样式
     const buttonStyle = document.createElement('style');
@@ -99,9 +102,6 @@
           border-color: var(--highlight-bg-color);
         }
     `, buttonStyle.sheet.cssRules.length);
-
-      // 将模态对话框添加到页面中
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
 
       // 获取模态对话框和按钮的元素
       const modal = document.getElementById('siteAlertModal');
