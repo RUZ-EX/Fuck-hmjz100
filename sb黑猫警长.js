@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         fuck-黑猫警长100
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @description  屏蔽一切[畜生科技](黑猫警长100)
 // @author       黑牛警长100
 // @include     *://*/*
@@ -64,15 +64,27 @@
 
     setCSSVariables();
 
-    // 创建模态对话框的HTML和CSS
-    const modalHTML = `
-        <div id="siteAlertModal" align="center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: var(--board-bg-color); border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; display: none; color: var(--text-color);">
-            <p>检测到(疑似含有)[🐕‍🦺畜生科技]{黑猫警长100}，您想要看乐子还是退出？</p><br>
-            <button id="continueBtn" class="button" style="margin-right: 26px;">看乐子警长🤣</button>
-            <button id="exitBtn" class="button">退出</button>
-        </div>
-        <div id="modalOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 999; display: none;"></div>
-    `;
+    // 根据页面宽度选择不同的模态对话框HTML和CSS
+    let modalHTML;
+    if (window.innerWidth > 575) {
+        modalHTML = `
+            <div id="siteAlertModal" align="center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: var(--board-bg-color); border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; display: none; color: var(--text-color);">
+                <p>检测到(疑似含有)[🐕‍🦺畜生科技]{黑猫警长100}，您想要看乐子还是退出？</p><br>
+                <button id="continueBtn" class="button" style="margin-right: 26px;">看乐子警长🤣</button>
+                <button id="exitBtn" class="button">退出</button>
+            </div>
+            <div id="modalOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 999; display: none;"></div>
+        `;
+    } else {
+        modalHTML = `
+            <div id="siteAlertModal" align="center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; background: var(--board-bg-color); border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px; z-index: 1000; display: block; color: var(--text-color);">
+                <p>检测到(疑似含有)[🐕&zwj;🦺畜生科技]{黑猫警长100}，您想要看乐子还是退出？</p><br>
+                <button id="continueBtn" class="button">看乐子警长🤣</button>
+                <p><br></p>
+                <button id="exitBtn" class="button">退出</button>
+            </div>
+        `;
+    }
     
       // 将模态对话框添加到页面中
       document.body.insertAdjacentHTML('beforeend', modalHTML);    
